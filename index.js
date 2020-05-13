@@ -1,5 +1,5 @@
 let appInsights = require("applicationinsights");
-appInsights.setup("87db3e3c-8ddf-40c2-9562-203b70dc8c53")
+appInsights.setup("6735f106-af4e-4bb6-94b5-230eb16820e9")
   .setAutoDependencyCorrelation(true)
   .setAutoCollectRequests(true)
   .setAutoCollectPerformance(true, true)
@@ -36,9 +36,9 @@ app.get('/error', (req, res) => {
 });
 
 app.get('/custom', (req, res) => {
-  res.json({ message: 'custom even send' })
   client.trackEvent({
     name: "my custom event",
-    properties: { customProperty: "custom property value" }
+    properties: { message: "custom event data" }
   });
+  res.json({ message: 'custom event send' })
 });
