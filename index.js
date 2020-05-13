@@ -1,3 +1,18 @@
+let appInsights = require("applicationinsights");
+appInsights.setup("a555e061-6101-48ee-8728-23f203518eaa")
+  .setAutoDependencyCorrelation(true)
+  .setAutoCollectRequests(true)
+  .setAutoCollectPerformance(true, true)
+  .setAutoCollectExceptions(true)
+  .setAutoCollectDependencies(true)
+  .setAutoCollectConsole(true)
+  .setUseDiskRetryCaching(true)
+  .setSendLiveMetrics(true)
+  .setDistributedTracingMode(appInsights.DistributedTracingModes.AI)
+  .start();
+
+let client = appInsights.defaultClient;
+
 const port = 8080;
 const express = require('express');
 const http = require('http');
@@ -10,7 +25,6 @@ app.get('/', (req, res) => {
   res.json({ message: 'Hello, Azure.' })
 });
 
-
 app.get('/error', (req, res) => {
   try {
     const wrong = 1
@@ -19,4 +33,12 @@ app.get('/error', (req, res) => {
     return res.status(500).json({ error: err.message })
   }
   res.json({ message: '' })
+});
+
+app.get('/custom', (req, res) => {
+  res.json({ message: 'custom even send' })
+  client.trackEvent({
+    name: "my custom event",
+    properties: { customProperty: "custom property value" }
+  });
 });
