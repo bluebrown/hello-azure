@@ -1,5 +1,5 @@
 let appInsights = require("applicationinsights");
-appInsights.setup("a555e061-6101-48ee-8728-23f203518eaa")
+appInsights.setup("87db3e3c-8ddf-40c2-9562-203b70dc8c53")
   .setAutoDependencyCorrelation(true)
   .setAutoCollectRequests(true)
   .setAutoCollectPerformance(true, true)
